@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s -o NUL -w \"index.html: %{http_code}\\\\n\" http://127.0.0.1:5174/index.html)",
+      "Bash(curl -s http://127.0.0.1:5174/index.html)"
+    ]
+  }
+}

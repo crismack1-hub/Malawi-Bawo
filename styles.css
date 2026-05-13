@@ -1,0 +1,398 @@
+/* Malawi Bawo — minimal dark theme */
+
+:root {
+  --bg: #0d0a06;
+  --surface: #16110a;
+  --surface-2: #1d160d;
+  --line: rgba(255, 220, 170, 0.10);
+  --ink: #f4ecdf;
+  --ink-2: #b6a78d;
+  --ink-3: #7d6f59;
+  --accent: #f5b54a;
+  --accent-dim: #c98718;
+  --wood-1: #6b3f1f;
+  --wood-2: #3d220f;
+  --pit-1: #2a160a;
+  --pit-2: #14090b;
+  --seed: #f3c873;
+  --capture: #ff7a7a;
+  --marker: #4cd0a4;
+  --opp-kimbi: #79a5ff;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-pill: 999px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+button { font: inherit; cursor: pointer; color: inherit; background: transparent; border: 0; }
+button:disabled { cursor: default; opacity: 0.5; }
+h1, h2, h3 { margin: 0; font-weight: 600; }
+p { margin: 0; }
+
+/* Top bar */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px clamp(16px, 4vw, 32px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 600; font-size: 1.05rem; letter-spacing: 0.01em; }
+.link {
+  color: var(--ink-2);
+  padding: 6px 10px;
+  border-radius: var(--r-md);
+}
+.link:hover { color: var(--ink); background: var(--surface); }
+.link:disabled { opacity: 0.5; }
+
+/* App container */
+#app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(20px, 5vw, 40px) clamp(16px, 4vw, 32px) 40px;
+}
+.screen[hidden] { display: none !important; }
+
+/* Home */
+.screen-home { display: grid; place-items: center; min-height: 70vh; }
+.home-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(24px, 4vw, 36px);
+  max-width: 460px;
+  width: 100%;
+  display: grid;
+  gap: 18px;
+}
+.home-card h1 {
+  font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+  margin-bottom: 4px;
+}
+.lead { color: var(--ink-2); font-size: 0.96rem; }
+
+.row { display: grid; gap: 8px; }
+.row label {
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+select {
+  appearance: none; -webkit-appearance: none;
+  padding: 10px 36px 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  color: var(--ink);
+  font-size: 0.95rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-2) 50%),
+                    linear-gradient(135deg, var(--ink-2) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.play-btn {
+  margin-top: 4px;
+  padding: 14px;
+  border-radius: var(--r-md);
+  background: var(--accent);
+  color: #1a0f06;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: filter 0.15s, transform 0.1s;
+}
+.play-btn:hover { filter: brightness(1.05); }
+.play-btn:active { transform: translateY(1px); }
+
+/* Game screen */
+.game-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.game-title {
+  text-align: center;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.score-side {
+  display: grid;
+  gap: 2px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.score-side.active { border-color: rgba(245, 181, 74, 0.5); background: var(--surface-2); }
+.side-label {
+  color: var(--ink-3);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.score-side strong { font-size: 1.6rem; }
+
+.status {
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  color: var(--ink);
+  text-align: center;
+  padding: 12px;
+  font-size: 0.95rem;
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 8px;
+  padding: 14px;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 60%),
+    linear-gradient(135deg, var(--wood-1), var(--wood-2) 90%);
+  border-radius: var(--r-lg);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  aspect-ratio: 8 / 4;
+}
+@media (max-width: 720px) {
+  .board { gap: 5px; padding: 10px; }
+  .scoreboard { grid-template-columns: 1fr 1fr; grid-template-areas: "n s" "st st"; }
+  #northSide { grid-area: n; }
+  #southSide { grid-area: s; }
+  .status { grid-area: st; }
+}
+
+.pit {
+  position: relative;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 30%, var(--pit-1), var(--pit-2) 75%);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6),
+              inset 0 -2px 3px rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: transform 0.15s, box-shadow 0.15s, outline-color 0.15s;
+}
+.pit:not(:disabled):hover { transform: translateY(-2px); }
+
+/* Flashing legal-move pits */
+.pit.playable {
+  cursor: pointer;
+  animation: pitFlash 1.7s ease-in-out infinite;
+}
+@keyframes pitFlash {
+  0%, 100% { box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(245, 181, 74, 0); }
+  50%      { box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(245, 181, 74, 0.35); }
+}
+
+/* Selected pit (waiting for direction choice) */
+.pit.selected {
+  outline-color: var(--accent);
+  animation: none;
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6),
+              0 0 0 4px rgba(245, 181, 74, 0.55);
+}
+
+/* Marker pit on south's inner row (capture-possible) */
+.pit.marker::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--marker);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Opponent's kimbi pits (informational tint) */
+.pit.opp-kimbi {
+  background:
+    radial-gradient(circle at 50% 30%, #2c1a13, #14090b 75%);
+}
+.pit.opp-kimbi::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px dotted rgba(121, 165, 255, 0.4);
+  pointer-events: none;
+}
+
+/* Last move's pickup pit (faint trace) */
+.pit.last-from { outline-color: rgba(245, 181, 74, 0.4); }
+
+/* Captured pit flash */
+.pit.captured {
+  animation: capFlash 0.4s ease-out;
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6),
+              0 0 0 4px rgba(255, 122, 122, 0.6);
+}
+@keyframes capFlash {
+  0% { box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6), 0 0 0 6px rgba(255, 122, 122, 0.7); }
+  100% { box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(255, 122, 122, 0.6); }
+}
+
+.count {
+  position: absolute;
+  top: 3px; right: 3px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--ink);
+  font-size: 0.74rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.seeds {
+  position: absolute;
+  inset: 18%;
+}
+.seed {
+  position: absolute;
+  width: 14%;
+  height: 14%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, var(--seed), #b06a1c 75%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translate(-50%, -50%);
+}
+.seed.dropped {
+  animation: seedDrop 0.3s ease-out;
+}
+@keyframes seedDrop {
+  0% { transform: translate(-50%, -160%) scale(0.6); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* Direction picker */
+.dir-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.dir-label {
+  color: var(--ink-3);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+.dir-picker button:not(.link) {
+  padding: 10px 18px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: #1a0f06;
+  font-weight: 600;
+}
+.dir-picker button:not(.link):disabled { background: var(--surface-2); color: var(--ink-3); }
+.dir-picker button:not(.link):hover:not(:disabled) { filter: brightness(1.05); }
+
+/* Tutorial */
+.tutorial-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.tut-progress {
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tut-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  max-width: 100%;
+}
+.tut-card h2 {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+.tut-card p {
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.tut-prompt {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  color: var(--ink) !important;
+  font-size: 0.92rem !important;
+}
+.tut-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+.tut-controls .play-btn { min-width: 140px; }
+.topbar-nav { display: flex; gap: 4px; }
+
+/* Rules */
+.rules-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.rules-head h2 { font-size: 1.4rem; }
+.rules-panel { max-width: 720px; }
+.rules-panel h3 { margin: 18px 0 6px; font-size: 1rem; color: var(--ink); }
+.rules-panel p, .rules-panel li { color: var(--ink-2); line-height: 1.55; }
+.rules-panel ul { padding-left: 20px; margin: 6px 0; }
+.rules-panel em { color: var(--accent); font-style: normal; font-weight: 500; }

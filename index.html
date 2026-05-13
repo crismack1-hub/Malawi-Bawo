@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0d0a06" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Malawi Bao" />
+    <meta name="description" content="Play Malawi Bao — an African board game." />
+    <title>Malawi Bao</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-screen="home">
+    <header class="topbar">
+      <button class="brand" type="button" data-nav="home">Malawi Bao</button>
+      <nav class="topbar-nav">
+        <button class="link" type="button" data-nav="tutorial">Tutorial</button>
+        <button class="link" type="button" data-nav="rules">Rules</button>
+      </nav>
+    </header>
+
+    <main id="app">
+      <!-- HOME -->
+      <section class="screen screen-home" data-screen="home">
+        <div class="home-card">
+          <h1>Malawi Bao</h1>
+          <p class="lead">An African board game. Two players, 32 pits, 2 seeds in each.</p>
+
+          <div class="row">
+            <label for="aiDifficulty">Difficulty</label>
+            <select id="aiDifficulty">
+              <option value="easy">Easy</option>
+              <option value="normal" selected>Normal</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+
+          <button class="play-btn" id="playBtn" type="button">Play</button>
+        </div>
+      </section>
+
+      <!-- GAME -->
+      <section class="screen screen-game" data-screen="game" hidden>
+        <div class="game-top">
+          <button class="link" type="button" data-nav="home">Home</button>
+          <div class="game-title">Malawi Bao</div>
+          <button class="link" type="button" id="restartBtn">Restart</button>
+        </div>
+
+        <div class="scoreboard">
+          <div class="score-side" id="northSide">
+            <span class="side-label">North</span>
+            <strong id="northScore">0</strong>
+          </div>
+          <div class="status" id="status">South to move</div>
+          <div class="score-side" id="southSide">
+            <span class="side-label">South</span>
+            <strong id="southScore">0</strong>
+          </div>
+        </div>
+
+        <div class="board" id="board" role="grid" aria-label="Bao board"></div>
+
+        <div class="dir-picker" id="dirPicker" hidden>
+          <span class="dir-label">Choose direction</span>
+          <button id="dirCCW" type="button" title="Anti-clockwise"><span aria-hidden="true">↺</span> Anti-clockwise</button>
+          <button id="dirCW" type="button" title="Clockwise"><span aria-hidden="true">↻</span> Clockwise</button>
+          <button id="dirCancel" type="button" class="link">Cancel</button>
+        </div>
+      </section>
+
+      <!-- TUTORIAL -->
+      <section class="screen screen-tutorial" data-screen="tutorial" hidden>
+        <div class="tutorial-top">
+          <button class="link" type="button" data-nav="home">Exit</button>
+          <div class="tut-progress" id="tutProgress">Step 1 of 6</div>
+          <button class="link" type="button" id="tutSkip">Skip</button>
+        </div>
+
+        <div class="tut-card">
+          <h2 id="tutTitle">Welcome</h2>
+          <p id="tutText"></p>
+          <p class="tut-prompt" id="tutPrompt" hidden></p>
+        </div>
+
+        <div class="board" id="tutBoard" role="grid" aria-label="Bao board"></div>
+
+        <div class="dir-picker" id="tutDirPicker" hidden>
+          <span class="dir-label">Choose direction</span>
+          <button id="tutDirCCW" type="button"><span aria-hidden="true">↺</span> Anti-clockwise</button>
+          <button id="tutDirCW" type="button"><span aria-hidden="true">↻</span> Clockwise</button>
+          <button id="tutDirCancel" type="button" class="link">Cancel</button>
+        </div>
+
+        <div class="tut-controls">
+          <button class="link" id="tutPrev" type="button">Previous</button>
+          <button class="play-btn" id="tutNext" type="button">Next</button>
+        </div>
+      </section>
+
+      <!-- RULES -->
+      <section class="screen screen-rules" data-screen="rules" hidden>
+        <div class="rules-head">
+          <button class="link" type="button" data-nav="home">Home</button>
+          <h2>How to play</h2>
+        </div>
+
+        <article class="rules-panel">
+          <h3>The board</h3>
+          <p>32 pits in 4 rows of 8. Each player owns one half (16 pits) — an inner row and an outer row. Every pit starts with 2 seeds.</p>
+
+          <h3>Sowing</h3>
+          <p>Pick one of your pits that has 2 or more seeds. Pick a direction — <em>clockwise</em> or <em>anti-clockwise</em>. Then lift all the seeds and drop one in each pit going around your own two rows.</p>
+
+          <h3>Marker pits</h3>
+          <p>A <em>marker pit</em> is a pit on your inner row whose opposite (the opponent's inner-row pit at the same column) contains seeds. Marker pits are highlighted.</p>
+
+          <h3>Capturing — mtaji turn</h3>
+          <p>If your last seed lands in a marker pit, capture all of the opponent's seeds in the opposite pit. Then sow those captured seeds in the <em>same direction</em>, starting from where you captured. Each new sowing can capture again — the chain continues until a sowing doesn't capture.</p>
+
+          <h3>Kimbi rule</h3>
+          <p>The first two and last two pits of your inner row are <em>kimbis</em>. The corner pit at each end is a <em>kichwa</em>. If you capture in a kimbi, the captured seeds are sown from the kichwa instead of from the kimbi:</p>
+          <ul>
+            <li>Capture in a <em>right</em> kimbi (column 6 or 7) → sow anti-clockwise from the right kichwa (column 7).</li>
+            <li>Capture in a <em>left</em> kimbi (column 0 or 1) → sow clockwise from the left kichwa (column 0).</li>
+          </ul>
+          <p>The opponent's kimbis are highlighted on the board.</p>
+
+          <h3>Takata turn</h3>
+          <p>If your first sowing doesn't capture, no capture can occur in the rest of the turn — the move ends. This is called a takata turn.</p>
+
+          <h3>Mandatory capture</h3>
+          <p>If any of your possible moves captures, you must play a capturing move. If several captures are available, you pick which one.</p>
+
+          <h3>End of the game</h3>
+          <p>You lose on your turn if your inner row is empty or if no pit on your side has 2 or more seeds.</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

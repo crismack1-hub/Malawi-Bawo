@@ -1,0 +1,59 @@
+{
+  "name": "malawi-bawo",
+  "version": "1.0.0",
+  "description": "A basic Malawi Bawo board game for mobile and desktop.",
+  "author": "Malawi Bawo",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "serve": "npx http-server . -p 5174",
+    "pack:win": "electron-builder --win --dir",
+    "pack:mac": "electron-builder --mac --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "copy:web": "node scripts/copy-web.js",
+    "cap:sync": "npm run copy:web && cap sync",
+    "cap:sync:android": "npm run copy:web && cap sync android",
+    "cap:sync:ios": "npm run copy:web && cap sync ios",
+    "android:open": "npm run cap:sync:android && cap open android",
+    "android:build": "npm run cap:sync:android && cd android && gradlew.bat assembleDebug",
+    "ios:open": "npm run cap:sync:ios && cap open ios"
+  },
+  "build": {
+    "appId": "com.malawibawo.game",
+    "productName": "Malawi Bawo",
+    "files": [
+      "index.html",
+      "styles.css",
+      "app.js",
+      "manifest.json",
+      "sw.js",
+      "electron-main.js",
+      "assets/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon-512.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon-512.png",
+      "category": "public.app-category.games"
+    }
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.3.4",
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3",
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.4",
+    "@capacitor/core": "^8.3.4",
+    "@capacitor/ios": "^8.3.4"
+  }
+}

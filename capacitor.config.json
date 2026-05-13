@@ -1,0 +1,8 @@
+{
+  "appId": "com.malawibawo.game",
+  "appName": "Malawi Bawo",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
